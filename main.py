@@ -79,6 +79,7 @@ def onOpen():
             lmList = hand1["lmList"]
             fingers1 = detector.fingersUp(hand1)
             serialSend(fingers1)
+
         cv2.imshow("Image", img)
         if cv2.waitKey(40) == 27:
             break
@@ -86,40 +87,9 @@ def onOpen():
 
 def serialSend(data):
 
-    if data[0] == 1:
-        ser.write(str("led1_on"+'\n').encode('utf8'))
+    for i, position in enumerate(data):
+        ser.write((f"led{i+1}_{'on' if position else 'off'}").encode('utf8'))
         ser.flush()
-    else:
-        ser.write(b"led1_off\n")
-        ser.flush()
-
-    if data[1] == 1:
-        ser.write(b"led2_on\n")
-        ser.flush()
-    else:
-        ser.write(b"led2_off\n")
-        ser.flush()
-    if data[2] == 1:
-        ser.write(b"led3_on\n")
-        ser.flush()
-    else:
-        ser.write(b"led3_off\n")
-        ser.flush()
-    if data[3] == 1:
-        ser.write(b"led4_on\n")
-        ser.flush()
-    else:
-        ser.write(b"led4_off\n")
-        ser.flush()
-    if data[4] == 1:
-        ser.write(b"led5_on\n")
-        ser.flush()
-    else:
-        ser.write(b"led5_off\n")
-        ser.flush()
-
-    ser.flush()
-    line = ''
 
 
 def onClose():
