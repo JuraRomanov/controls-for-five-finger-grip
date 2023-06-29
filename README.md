@@ -151,16 +151,16 @@ detector = HandDetector(detectionCon=0.8, maxHands=2)
 Preference.setReadCap(True)
 
 while Preference.getReadCap():
-success, img = Preference.cap.read()
-hands, img = detector.findHands(img)
-if hands:
-    hand1 = hands[0]
-    fingers1 = detector.fingersUp(hand1)
-    serialSend(fingers1, Preference.getComPort())
-    cv2.imshow("Image", img)
-    if cv2.waitKey(40) == 27:
-        onClose(Preference)
-        break
+    success, img = Preference.cap.read()
+    hands, img = detector.findHands(img)
+    if hands:
+        hand1 = hands[0]
+        fingers1 = detector.fingersUp(hand1)
+        serialSend(fingers1, Preference.getComPort())
+        cv2.imshow("Image", img)
+        if cv2.waitKey(40) == 27:
+            onClose(Preference)
+            break
 ```
 
 Функция **_serialSend_** , которыя вызвается в **_onOpen_** отвечает, за отправку данных на **_serial-port_**
